@@ -4,6 +4,7 @@ from .locators import MainPageLocators
 
 
 
+
 class MainPage(BasePage):
     def got_to_login_page(self):
         login_link = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
