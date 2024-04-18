@@ -4,14 +4,16 @@ import time
 
 
 class ProductPage(BasePage):
-    def messages(self):
+    def message(self):
         return self.browser.find_element(*ProductPageLocators.SUCCESS_ADD_MESSAGE).text
 
-    def name(self):
+    def message_name(self):
+        return self.browser.find_element(*ProductPageLocators.SUCCESS_ADD_MESSAGE_NAME).text
+
+    def product_name(self):
         return self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
 
-
-    def price(self):
+    def product_price(self):
         return self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
     def should_add_product_to_backet(self):
         self.add_to_basket()
@@ -25,7 +27,7 @@ class ProductPage(BasePage):
 
     def should_be_message(self):
         time.sleep(2)
-        assert self.name() in self.messages(), 'Product name incorrect in success add messages'
+        assert self.product_name() == self.message_name(), 'Product name incorrect in success add messages'
 
     def should_be_price(self):
-        assert self.price() in self.messages(), 'Product price incorrect in success add messages'
+        assert self.product_price() in self.message(), 'Product price incorrect in success add messages'
