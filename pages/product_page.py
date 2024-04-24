@@ -15,17 +15,26 @@ class ProductPage(BasePage):
 
     def product_price(self):
         return self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
+
     def should_add_product_to_backet(self):
         self.add_to_basket()
-        self.should_be_message()
+        self.should_be_name()
         self.should_be_price()
 
     def add_to_basket(self):
         self.browser.find_element(*ProductPageLocators.ADD_IN_BASKET_BUTTON).click()
-        self.solve_quiz_and_get_code()
+        if 'promo' in self.browser.current_url:
+            self.solve_quiz_and_get_code()
 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_ADD_MESSAGE), \
+            "Success message is presented, but should not be"
 
-    def should_be_message(self):
+    def should_be_disappeared_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_ADD_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_be_name(self):
         time.sleep(2)
         assert self.product_name() == self.message_name(), 'Product name incorrect in success add messages'
 

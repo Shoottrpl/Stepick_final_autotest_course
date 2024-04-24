@@ -17,7 +17,28 @@ links = ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?pr
 
 @pytest.mark.parametrize('link', links)
 def test_guest_can_add_product_to_basket(browser, link):
-    page = MainPage(browser, link)
+    page = ProductPage(browser, link)
     page.open()
-    product_page = ProductPage(browser, browser.current_url)
-    product_page.should_add_product_to_backet()
+    page.should_add_product_to_backet()
+
+@pytest.mark.parametrize('link', ['http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/'])
+class TestProductPage:
+    @pytest.mark.xfail
+    def test_guest_cant_see_success_message_after_adding_product_to_basket(self, browser, link):
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_to_basket()
+        page.should_not_be_success_message()
+
+    def test_guest_cant_see_success_message(self, browser, link):
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+
+    @pytest.mark.xfail
+    def test_message_disappeared_after_adding_product_to_basket(self, browser, link):
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_to_basket()
+        page.should_be_disappeared_message()
+
