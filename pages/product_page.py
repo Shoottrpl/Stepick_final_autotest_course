@@ -35,7 +35,6 @@ class ProductPage(BasePage):
             "Success message is presented, but should not be"
 
     def should_be_name(self):
-        time.sleep(2)
         assert self.product_name() == self.message_name(), 'Product name incorrect in success add messages'
 
     def should_be_price(self):
