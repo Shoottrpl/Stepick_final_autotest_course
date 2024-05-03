@@ -23,7 +23,7 @@ class ProductPage(BasePage):
 
     def add_to_basket(self):
         self.browser.find_element(*ProductPageLocators.ADD_IN_BASKET_BUTTON).click()
-        if 'promo' in self.browser.current_url:
+        if 'promo' in self.url:
             self.solve_quiz_and_get_code()
 
     def should_not_be_success_message(self):
